@@ -21,7 +21,7 @@ INSERT INTO users (id, firstname, lastname, email, password, role, created_on) V
 `;
 
 const findUserByEmail = `
-SELECT * FROM users WHERE email = ?
+SELECT * FROM users WHERE email = ? AND role = 'admin'
 `;
 
 const getAllUsers = `
