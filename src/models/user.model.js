@@ -3,12 +3,14 @@ const { createNewUser: createNewUserQuery, findUserByEmail: findUserByEmailQuery
 const { logger } = require('../utils/logger');
 
 class User {
-    constructor(firstname, lastname, email, password, role) {
+    constructor(firstname, lastname, email, password, role, phone, address) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phone = phone;
+        this.address = address;
     }
 
     static create(newUser, cb) {
@@ -19,6 +21,8 @@ class User {
                 newUser.email, 
                 newUser.password,
                 newUser.role,
+                newUser.phone,
+                newUser.address,
             ], (err, res) => {
                 if (err) {
                     logger.error(err.message);
@@ -31,6 +35,8 @@ class User {
                     lastname: newUser.lastname,
                     email: newUser.email,
                     role: newUser.role,
+                    phone: newUser.phone,
+                    address: newUser.address,
                 });
         });
     }

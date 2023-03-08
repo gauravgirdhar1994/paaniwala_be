@@ -25,7 +25,12 @@ const signup = (req, res, next) => {
             .required(),
         role: Joi.string()
             .trim()
-            // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
+            .required(),
+        phone: Joi.string()
+            .trim()
+            .required(),
+        address: Joi.string()
+            .trim()
             .required()
     });
     validatorHandler(req, res, next, schema);
