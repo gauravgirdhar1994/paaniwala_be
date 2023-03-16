@@ -27,11 +27,11 @@ const signup = (req, res, next) => {
             .trim()
             .required(),
         phone: Joi.string()
-            .trim()
-            .required(),
+            .trim(),
+            // .required(),
         address: Joi.string()
-            .trim()
-            .required()
+            .trim(),
+            // .required()
     });
     validatorHandler(req, res, next, schema);
 };
