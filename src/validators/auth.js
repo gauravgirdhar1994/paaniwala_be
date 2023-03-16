@@ -45,6 +45,10 @@ const signin = (req, res, next) => {
         password: Joi.string()
             .trim()
             // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
+            .required(),
+        userRole: Joi.string()
+            .trim()
+            // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
             .required()
     });
     validatorHandler(req, res, next, schema);

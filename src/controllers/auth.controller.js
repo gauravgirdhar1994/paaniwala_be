@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
     User.create(user, (err, data) => {
         if (err) {
             res.status(500).send({
-                status: "error",
+                status: "error message",
                 message: err.message
             });
         } else {
@@ -28,8 +28,10 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    const { email, password } = req.body;
-    User.findByEmail(email.trim(), (err, data) => {
+    const { email, password, userRole } = req.body;
+   
+    User.findByEmail(email.trim(), userRole, (err, data) => {
+ 
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
@@ -65,6 +67,7 @@ exports.signin = (req, res) => {
                 message: 'Incorrect password'
             });
         }
-    });
+    }
+    );
 
 }

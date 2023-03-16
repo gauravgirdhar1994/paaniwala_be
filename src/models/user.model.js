@@ -41,14 +41,18 @@ class User {
         });
     }
 
-    static findByEmail(email, cb) {
-        db.query(findUserByEmailQuery, email, (err, res) => {
+    static findByEmail(email, role, cb) {
+        console.log('callback', cb); 
+        db.query(findUserByEmailQuery, [email,role], (err, res) => {
+            console.log('error', err);
             if (err) {
+                console.log('Error');
                 logger.error(err.message);
                 cb(err, null);
                 return;
             }
             if (res.length) {
+                console.log('Error');
                 cb(null, res[0]);
                 return;
             }

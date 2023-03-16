@@ -40,7 +40,7 @@ INSERT INTO products (id, productTitle, productImage, productDescription, color,
 `;
 
 const findUserByEmail = `
-SELECT * FROM users WHERE email = ? AND role = 'admin'
+SELECT * FROM users WHERE email = ? AND role = ?
 `;
 
 const getAllUsers = `

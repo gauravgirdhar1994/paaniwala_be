@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 app.use((err, req, res, next) => {
     res.status(err.statusCode || 500).send({
-        status: "error",
+        status: "error message",
         message: err.message
     });
     next();
