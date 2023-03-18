@@ -8,7 +8,7 @@ exports.createProduct = (req, res) => {
   const myFile = req.files.file;
 
   //  mv() method places the file inside public directory
-  myFile.mv(`${__dirname}/../../public/${myFile.name}`, function (err) {
+  myFile.mv(`${__dirname}/../../public/img/${myFile.name}`, function (err) {
     if (err) {
       console.log(err);
       return res.status(500).send({ msg: "Error occured" });
