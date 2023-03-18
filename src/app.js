@@ -2,6 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
+
+const fileUpload = require('express-fileupload');
+
 const authRoute = require('./routes/auth.route');
 const userRoute = require('./routes/user.route');
 const productRoute = require('./routes/product.route');
@@ -15,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(morgan('combined', { stream: httpLogStream }));
 app.use(cors());
+app.use(fileUpload());
 
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
