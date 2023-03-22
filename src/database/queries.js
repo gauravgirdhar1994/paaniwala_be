@@ -9,10 +9,9 @@ CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(50) NULL,
     lastname VARCHAR(50) NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NULL,
+    zipCode VARCHAR(255) NULL,
     address VARCHAR(255) NULL,
     created_on TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 )
@@ -32,7 +31,7 @@ CREATE TABLE IF NOT EXISTS products (
 `;
 
 const createNewUser = `
-INSERT INTO users (id, firstname, lastname, email, password, role, phone, address, created_on) VALUES(null, ?, ?, ?, ?, ?, ?, ?, NOW())
+INSERT INTO users (id, firstname, lastname, role, phone, address, zipCode, created_on) VALUES(null, ?, ?, ?, ?, ?, ?, NOW())
 `;
 
 const createNewProduct = `
@@ -40,7 +39,7 @@ INSERT INTO products (id, productTitle, productImage, productDescription, color,
 `;
 
 const findUserByEmail = `
-SELECT * FROM users WHERE email = ? AND role = ?
+SELECT * FROM users WHERE phone = ? AND role = ?
 `;
 
 const getAllUsers = `

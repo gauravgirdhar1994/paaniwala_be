@@ -11,4 +11,8 @@ router.route('/signup')
 router.route('/signin')
     .post(signinValidator, asyncHandler(authController.signin));
 
+
+router.route('/send-otp')
+    .post(asyncHandler(authController.sendOtp));
+
 module.exports = router;

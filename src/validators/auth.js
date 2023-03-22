@@ -15,21 +15,15 @@ const signup = (req, res, next) => {
             .min(3)
             .max(50)
             .required(),
-        email: Joi.string()
-            .trim()
-            .email()
-            .required(),
-        password: Joi.string()
-            .trim()
-            // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
-            .required(),
         role: Joi.string()
             .trim()
             .required(),
         phone: Joi.string()
-            .trim(),
-            // .required(),
+            .trim()
+            .required(),
         address: Joi.string()
+            .trim(),
+        zipCode: Joi.string()
             .trim(),
             // .required()
     });
@@ -38,13 +32,8 @@ const signup = (req, res, next) => {
 
 const signin = (req, res, next) => {
     const schema = Joi.object().keys({
-        email: Joi.string()
+        phoneNumber: Joi.string()
             .trim()
-            .email()
-            .required(),
-        password: Joi.string()
-            .trim()
-            // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
             .required(),
         userRole: Joi.string()
             .trim()

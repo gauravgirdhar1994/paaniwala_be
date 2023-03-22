@@ -1,12 +1,12 @@
+var axios = require('axios');
 const User = require('../models/user.model');
 const { hash: hashPassword, compare: comparePassword } = require('../utils/password');
 const { generate: generateToken } = require('../utils/token');
 
 exports.signup = (req, res) => {
-    const { firstname, lastname, email, password, role, phone, address } = req.body;
-    const hashedPassword = hashPassword(password.trim());
+    const { firstname, lastname, role, phone, address } = req.body;
 
-    const user = new User(firstname.trim(), lastname.trim(), email.trim(), hashedPassword, role, phone, address);
+    const user = new User(firstname.trim(), lastname.trim(), role, phone, address);
 
     User.create(user, (err, data) => {
         if (err) {
@@ -28,15 +28,15 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    const { email, password, userRole } = req.body;
+    const { phoneNumber, userRole } = req.body;
    
-    User.findByEmail(email.trim(), userRole, (err, data) => {
+    User.findByEmail(phoneNumber.trim(), userRole, (err, data) => {
  
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
                     status: 'error',
-                    message: `User with email ${email} was not found`
+                    message: `User was not found`
                 });
                 return;
             }
@@ -47,7 +47,6 @@ exports.signin = (req, res) => {
             return;
         }
         if (data) {
-            if (comparePassword(password.trim(), data.password)) {
                 const token = generateToken(data.id);
                 res.status(200).send({
                     status: 'success',
@@ -55,19 +54,45 @@ exports.signin = (req, res) => {
                         token,
                         firstname: data.firstname,
                         lastname: data.lastname,
-                        email: data.email,
                         phone: data.phone,
                         address: data.address,
                     }
                 });
                 return;
             }
-            res.status(401).send({
-                status: 'error',
-                message: 'Incorrect password'
-            });
-        }
     }
     );
 
+}
+
+exports.sendOtp = async(req, res) => {
+    const { phoneNumber } = req.body;
+
+    var data = JSON.stringify({
+        "identity": {
+          "type": "number",
+          "endpoint": `+91${phoneNumber}`
+        },
+        "method": "sms"
+      });
+      
+      var config = {
+        method: 'post',
+        url: 'https://verification.api.sinch.com/verification/v1/verifications',
+        headers: { 
+          'Authorization': 'Basic N2VjMjg1N2UtYzhiNy00NTEwLWIzNjUtMzEyNzI3MmQ2ZDBlOnU1QlZUYkZoazBDSEkwK1JOc3JRSEE9PQ==', 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        res.send(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);
+      });
 }
