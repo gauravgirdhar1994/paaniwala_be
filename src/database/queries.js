@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     lastname VARCHAR(50) NULL,
     role VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NULL,
+    email VARCHAR(255) NULL,
     zipCode VARCHAR(255) NULL,
     address VARCHAR(255) NULL,
     created_on TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
 `;
 
 const createNewUser = `
-INSERT INTO users (id, firstname, lastname, role, phone, address, zipCode, created_on) VALUES(null, ?, ?, ?, ?, ?, ?, NOW())
+INSERT INTO users (id, firstname, lastname, role, phone, address, zipCode,email, created_on) VALUES(null, ?, ?, ?, ?, ?, ?, ?, NOW())
 `;
 
 const createNewProduct = `

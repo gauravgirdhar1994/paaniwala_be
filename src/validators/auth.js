@@ -25,6 +25,8 @@ const signup = (req, res, next) => {
             .trim(),
         zipCode: Joi.string()
             .trim(),
+        email: Joi.string()
+            .trim(),
             // .required()
     });
     validatorHandler(req, res, next, schema);
@@ -33,6 +35,12 @@ const signup = (req, res, next) => {
 const signin = (req, res, next) => {
     const schema = Joi.object().keys({
         phoneNumber: Joi.string()
+            .trim()
+            .required(),
+        verificationOtp: Joi.string()
+            .trim()
+            .required(),
+        url: Joi.string()
             .trim()
             .required(),
         userRole: Joi.string()
